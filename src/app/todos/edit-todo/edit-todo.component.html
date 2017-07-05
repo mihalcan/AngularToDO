@@ -1,0 +1,20 @@
+<form [formGroup]="editForm" (ngSubmit)="save(editForm.value)" autocomplete="off" novalidate>
+  <input type="hidden" formControlName='id'/>
+  <div class="form-group">
+    <label for="task" class="">Task:</label>
+    <em *ngIf="task.invalid && task.dirty && task?.errors.required">Required</em>
+    <em *ngIf="task.invalid && task.dirty && task?.errors.ALREADY_EXISTS">{{editForm.controls.task?.errors.ALREADY_EXISTS}}</em>
+    <input formControlName="task" id="task" type="text" class="form-control" placeholder="Task..." />
+  </div>
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+          <input formControlName="done" type="checkbox"> Done?
+        </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid">Save</button>
+    <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+  </div>
+</form>

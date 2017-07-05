@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+      <span> List to Do</span>
+      <button class="btn btn-success btn-xs" (click)="onAdd()">
+        <i class="glyphicon glyphicon-plus"></i>
+        New
+      </button>
+      <div [formGroup]="searchGroup" style="display: inline">
+        <input type="text" name="search" formControlName="search" placeholder="Search..." class="pull-right" />
+      </div>
+  </div>
+  <ul class="list-group">
+    <li *ngFor="let todo of todos" class="list-group-item">
+      <app-view-todo [todo]="todo" (edit)="onEdit($event)" (delete)="onDelete($event)"></app-view-todo>
+    </li>
+  </ul>
+</div>
