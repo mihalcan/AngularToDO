@@ -27,12 +27,12 @@ export class EditTodoComponent implements OnInit {
   ngOnInit() {
     const id = +this.route.snapshot.params['id'];
     if (!isNaN(id)) {
-      const foundTodo = this.todosService.getBy(id);
-      this.editForm.patchValue({
-        task: foundTodo.task,
-        done: foundTodo.done,
-        id: id
-      });
+      this.todosService.getBy(id)
+        .subscribe((result) => this.editForm.patchValue({
+          task: result.task,
+          done: result.done,
+          id: id
+        }));
     } else {
       this.task.setValidators([Validators.required, this.todoExists(this.todosService)])
     }
@@ -40,8 +40,15 @@ export class EditTodoComponent implements OnInit {
 
   save(todoToSave: ToDo) {
     if (this.editForm.valid) {
-      this.todosService.addOrUpdate(todoToSave);
-      this.router.navigate(['/list']);
+      if (isNaN(todoToSave.id)) {
+        this.todosService.add(todoToSave)
+          .subscribe((result) => console.log(result));
+        this.router.navigate(['/list']);
+      } else {
+        this.todosService.update(todoToSave)
+          .subscribe((result) => console.log(result));
+        this.router.navigate(['/list']);
+      }
     }
   }
 
@@ -53,9 +60,10 @@ export class EditTodoComponent implements OnInit {
     return (control: FormControl): { [key: string]: any } => {
       if (!!control.value) {
         const ctrlValue = control.value.toLowerCase();
-        return service.getAll().some((value) => value.task.toLowerCase() === ctrlValue)
-          ? { ALREADY_EXISTS: 'Specified task already exists' }
-          : null;
+        return null;
+        // return service.getAll().some((value) => value.task.toLowerCase() === ctrlValue)
+        //   ? { ALREADY_EXISTS: 'Specified task already exists' }
+        //   : null;
       }
     }
   }

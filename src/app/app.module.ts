@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule} from '@angular/router';
@@ -17,6 +18,7 @@ import { DoneComponent } from './common/components/done/done.component';
 import { EditTodoComponent } from './todos/edit-todo/edit-todo.component';
 import { NavComponent } from './nav/nav.component';
 import { LoginComponent } from './login/login.component';
+import { ConfirmDirective } from './core/confirm.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { LoginComponent } from './login/login.component';
     ViewTodoComponent,
     EditTodoComponent,
     NavComponent,
-    LoginComponent
+    LoginComponent,
+    ConfirmDirective
   ],
   imports: [
     BrowserModule,

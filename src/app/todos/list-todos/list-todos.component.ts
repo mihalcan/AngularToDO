@@ -22,7 +22,6 @@ export class ListTodosComponent implements OnInit {
     private todosService: TodosService ) { }
 
   ngOnInit() {
-    this.todos = this.todosService.getAll();
     this.searchGroup = new FormGroup({
       search: new FormControl()
     });
@@ -32,6 +31,8 @@ export class ListTodosComponent implements OnInit {
       .do((searchTerm) => console.log(searchTerm))
       .map((searchTerm) => searchTerm.trim())
       .subscribe((searchTerm) => this.searchByName(searchTerm));
+
+    this.getAvailableTodos();
   }
 
   onEdit(todo: ToDo) {
@@ -39,15 +40,20 @@ export class ListTodosComponent implements OnInit {
   }
 
   onDelete(todo: ToDo) {
-    this.todosService.delete(todo);
-    this.todos = this.todosService.getAll();
+    this.todosService.delete(todo)
+      .subscribe((_) => this.getAvailableTodos());
   }
 
   onAdd() {
     this.router.navigate(['/edit', 'new']);
   }
 
+  private getAvailableTodos() {
+    const searchTerm = this.searchGroup.controls.search.value;
+    this.searchByName(searchTerm === null ? '' : searchTerm);
+  }
+
   private searchByName(searchTerm: string) {
-    this.todos = this.todosService.search(searchTerm);
+    this.todosService.search(searchTerm).subscribe((result) => this.todos = result);
   }
 }
