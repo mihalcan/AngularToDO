@@ -5,7 +5,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   selector: 'app-view-todo',
   template: `
     <span>{{todo.task}}</span>
-    <app-done [done]="todo.done"></app-done>
+    <span class="label label-info">{{todo.done | done}}</span>
     <button class="btn btn-default btn-xs pull-right ml-10" (click)="onDelete()" appConfirm="Are you sure want to delete this item?">
         <i class="glyphicon glyphicon-remove"></i>
         Delete

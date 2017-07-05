@@ -14,22 +14,22 @@ import { AuthGuard } from './core/auth.guard';
 
 import { ListTodosComponent } from 'app/todos/list-todos/list-todos.component';
 import { ViewTodoComponent } from './todos/list-todos/view-todo.component';
-import { DoneComponent } from './common/components/done/done.component';
 import { EditTodoComponent } from './todos/edit-todo/edit-todo.component';
 import { NavComponent } from './nav/nav.component';
 import { LoginComponent } from './login/login.component';
 import { ConfirmDirective } from './core/confirm.directive';
+import { DonePipe } from './todos/list-todos/done.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListTodosComponent,
-    DoneComponent,
     ViewTodoComponent,
     EditTodoComponent,
     NavComponent,
     LoginComponent,
-    ConfirmDirective
+    ConfirmDirective,
+    DonePipe
   ],
   imports: [
     BrowserModule,
