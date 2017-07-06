@@ -1,3 +1,4 @@
+import { FormCancelGuard } from './todos/edit-todo/form-cancel.guard';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -41,13 +42,14 @@ import { DonePipe } from './todos/list-todos/done.pipe';
       { path: '', component: ListTodosComponent, canActivate: [AuthGuard] },
       { path: 'list', component: ListTodosComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'edit/:id', component: EditTodoComponent },
+      { path: 'edit/:id', component: EditTodoComponent, canDeactivate: [FormCancelGuard] },
       ])
   ],
   providers: [
     TodosService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    FormCancelGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -8,12 +8,6 @@ import 'rxjs/add/observable/of';
 
 @Injectable()
 export class TodosService {
-  private static todos: ToDo[] = [
-    {id: 1, task: 'Learn angular', lastModified: new Date(), done: false},
-    {id: 2, task: 'Learn RxJs', lastModified: new Date(), done: false},
-    {id: 3, task: 'Listen to Andrei', lastModified: new Date(), done: true},
-  ];
-
   private baseUrl = 'api/todos';
   private headers = new Headers({'Content-Type': 'application/json'});
 
