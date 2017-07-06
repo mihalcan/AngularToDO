@@ -4,6 +4,8 @@ import { Http, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
 @Injectable()
@@ -19,7 +21,7 @@ export class TodosService {
       .do((response) => console.log(response.json()))
       .map((response) => response.json().data)
       .catch((err) => {
-        console.log(err);
+        console.log('error: ' + JSON.stringify(err));
         return Observable.of([]);
       });
   }

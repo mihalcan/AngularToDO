@@ -9,6 +9,6 @@ describe('DonePipe', () => {
   it('should display well done when a todo item is done', () => {
     const done = true;
     const result = new DonePipe().transform(done);
-    expect(result).toBe('Well Done !!!');
+    expect(result).toBe('Well Done!!!');
   });
 });
