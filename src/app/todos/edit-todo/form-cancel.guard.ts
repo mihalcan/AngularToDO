@@ -12,7 +12,7 @@ export class FormCancelGuard implements CanDeactivate<EditTodoComponent> {
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-    if (component.editForm.dirty) {
+    if (component.editForm.dirty && component.editForm.invalid) {
       return window.confirm(this.confirmMessage);
     }
 

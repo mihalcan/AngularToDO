@@ -40,9 +40,9 @@ import { DonePipe } from './todos/list-todos/done.pipe';
     InMemoryWebApiModule.forRoot(InMemoryTodoService, { delay: 500, apiBase: 'api/'}),
     RouterModule.forRoot([
       { path: '', component: ListTodosComponent, canActivate: [AuthGuard] },
-      { path: 'list', component: ListTodosComponent },
+      { path: 'list', component: ListTodosComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
-      { path: 'edit/:id', component: EditTodoComponent, canDeactivate: [FormCancelGuard] },
+      { path: 'edit/:id', component: EditTodoComponent, canActivate: [AuthGuard], canDeactivate: [FormCancelGuard] },
       ])
   ],
   providers: [
