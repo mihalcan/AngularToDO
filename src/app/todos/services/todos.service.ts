@@ -18,7 +18,12 @@ export class TodosService {
   }
 
   delete(todo: ToDo) {
-    TodosService.todos = TodosService.todos.filter((value) =>  value.id !== todo.id);
+    for (let i = 0; i < this.todos.length; i++) {
+      if (this.todos[i].id === todo.id) {
+        this.todos.splice(i, 1);
+        return;
+      }
+    }
   }
 
   addOrUpdate(todo: ToDo) {
