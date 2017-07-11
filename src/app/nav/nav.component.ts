@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   selector: 'app-nav',
   templateUrl: './nav.component.html'
 })
-export class NavComponent{
+export class NavComponent {
   @Input() title: string;
 
   constructor(private auth: AuthService) { }

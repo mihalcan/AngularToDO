@@ -36,7 +36,7 @@ export class ListTodosComponent implements OnInit {
   }
 
   onEdit(todo: ToDo) {
-    this.router.navigate(['/edit', todo.id]);
+    this.router.navigate(['/todos/edit', todo.id]);
   }
 
   onDelete(todo: ToDo) {
@@ -45,7 +45,7 @@ export class ListTodosComponent implements OnInit {
   }
 
   onAdd() {
-    this.router.navigate(['/edit', 'new']);
+    this.router.navigate(['/todos/edit', 'new']);
   }
 
   private getAvailableTodos() {

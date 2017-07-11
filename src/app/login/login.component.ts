@@ -18,6 +18,6 @@ export class LoginComponent implements OnInit {
 
   login(formValues) {
     this.authService.login(formValues.userName, formValues.password);
-    this.router.navigate(['/list']);
+    this.router.navigate(['todos/list']);
   }
 }

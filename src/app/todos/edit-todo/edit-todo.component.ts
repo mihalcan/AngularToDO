@@ -43,17 +43,17 @@ export class EditTodoComponent implements OnInit {
       if (isNaN(todoToSave.id)) {
         this.todosService.add(todoToSave)
           .subscribe((result) => console.log(result));
-        this.router.navigate(['/list']);
+        this.router.navigate(['/todos/list']);
       } else {
         this.todosService.update(todoToSave)
           .subscribe((result) => console.log(result));
-        this.router.navigate(['/list']);
+        this.router.navigate(['/todos/list']);
       }
     }
   }
 
   cancel() {
-    this.router.navigate(['/list']);
+    this.router.navigate(['/todos/list']);
   }
 
   todoExists(service: TodosService) {
