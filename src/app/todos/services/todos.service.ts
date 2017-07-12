@@ -18,7 +18,6 @@ export class TodosService {
 
   getAll(): Observable<ToDo[]> {
     return this.http.get(this.baseUrl)
-      .do((response) => console.log(response.json()))
       .map((response) => response.json().data)
       .catch((err) => {
         console.log('error: ' + JSON.stringify(err));
@@ -26,17 +25,9 @@ export class TodosService {
       });
   }
 
-  getBy(id: number): Observable<ToDo> {
-    return this.http.get(`${this.baseUrl}/${id}`)
-      .map((response) => response.json().data)
-      .catch((err) => {
-        console.log(err);
-        return Observable.of(null);
-      });
-  }
-
-  delete(todo: ToDo): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${todo.id}`);
+  delete(todo: ToDo): Observable<number> {
+    return this.http.delete(`${this.baseUrl}/${todo.id}`)
+            .map((_) => todo.id);
   }
 
   add(todo: ToDo): Observable<ToDo> {
@@ -46,15 +37,9 @@ export class TodosService {
   }
 
   update(todo: ToDo): Observable<ToDo> {
+    console.log(todo);
     return this.http.put(`${this.baseUrl}/${todo.id}`, JSON.stringify(todo), { headers: this.headers})
-        .do((response) => console.log(response.json()))
+        .do((response) => console.log(response))
         .map((response) => response.json().data);
-  }
-
-  search(searchTerm: string) {
-    searchTerm = searchTerm.toLowerCase();
-    return this.getAll().map((todos) =>
-      todos.filter((value) =>  value.task.toLowerCase().indexOf(searchTerm) > -1)
-    );
   }
 }

@@ -1,4 +1,4 @@
-import { TodosService } from './../services/todos.service';
+import { TodosStore } from './../../core/store/todos/todos.store';
 import { ToDo } from './../models/todo.model';
 import { Component, OnInit } from '@angular/core';
 import { Route, ActivatedRoute, Router } from '@angular/router';
@@ -21,34 +21,32 @@ export class EditTodoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private todosService: TodosService,
+    private todosStore: TodosStore,
     private fb: FormBuilder) { }
 
   ngOnInit() {
     const id = +this.route.snapshot.params['id'];
     if (!isNaN(id)) {
-      this.todosService.getBy(id)
+      this.todosStore.getBy(id)
         .subscribe((result) => this.editForm.patchValue({
           task: result.task,
           done: result.done,
           id: id
         }));
     } else {
-      this.task.setValidators([Validators.required, this.todoExists(this.todosService)])
+      this.task.setValidators([Validators.required, this.todoExists()])
     }
   }
 
   save(todoToSave: ToDo) {
     if (this.editForm.valid) {
       if (isNaN(todoToSave.id)) {
-        this.todosService.add(todoToSave)
-          .subscribe((result) => console.log(result));
-        this.router.navigate(['/todos/list']);
+        this.todosStore.add(todoToSave);
       } else {
-        this.todosService.update(todoToSave)
-          .subscribe((result) => console.log(result));
-        this.router.navigate(['/todos/list']);
+        this.todosStore.edit(todoToSave);
       }
+
+      this.router.navigate(['/todos/list']);
     }
   }
 
@@ -56,7 +54,7 @@ export class EditTodoComponent implements OnInit {
     this.router.navigate(['/todos/list']);
   }
 
-  todoExists(service: TodosService) {
+  todoExists() {
     return (control: FormControl): { [key: string]: any } => {
       if (!!control.value) {
         const ctrlValue = control.value.toLowerCase();

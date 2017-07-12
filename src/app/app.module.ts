@@ -1,3 +1,4 @@
+import { AppStoreModule } from './core/store/store.module';
 import { CoreModule } from './core/core.module';
 import { LoginModule } from './login/login.module';
 import { TodosModule } from './todos/todos.module';
@@ -20,7 +21,8 @@ import { NavComponent } from './nav/nav.component';
     CoreModule,
     AppRoutingModule,
     TodosModule,
-    LoginModule
+    LoginModule,
+    AppStoreModule
   ],
   bootstrap: [AppComponent]
 })

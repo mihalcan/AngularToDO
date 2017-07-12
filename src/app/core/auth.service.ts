@@ -1,21 +1,11 @@
+import { User } from './models/user.model';
+import { Observable } from 'rxjs/Observable';
+import { Auth } from './models/auth.model';
 import { Injectable } from '@angular/core';
+
 @Injectable()
 export class AuthService {
-    private authenticated = false;
-    private userName: string;
-
-    login(userName: string, pwd: string) {
-        this.userName = userName;
-        this.authenticated = true;
-    }
-
-    isAuthenticated(): boolean {
-        console.log('authenticated: ' + this.authenticated);
-        return this.authenticated;
-    }
-
-    getUserName(): string {
-        console.log('userName: ' + this.userName);
-        return this.userName;
+    authenticate(auth: Auth): Observable<User> {
+        return Observable.of({userName: auth.userName, authenticated: true } as User);
     }
 }

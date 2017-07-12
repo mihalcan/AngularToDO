@@ -9,7 +9,12 @@ import { NgModule } from '@angular/core';
 @NgModule({
     imports: [
         HttpModule,
-        InMemoryWebApiModule.forRoot(InMemoryTodoService, { delay: 500, apiBase: 'api/'}),
+        InMemoryWebApiModule.forRoot(InMemoryTodoService, {
+            delay: 500,
+            apiBase: 'api/',
+            post204: false,
+            put204: false
+        }),
     ],
     declarations: [
         ConfirmDirective

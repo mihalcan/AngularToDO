@@ -1,4 +1,5 @@
-import { TodosService } from './../services/todos.service';
+import { Observable } from 'rxjs/Observable';
+import { TodosStore } from './../../core/store/todos/todos.store';
 import { ToDo } from './../models/todo.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -15,11 +16,11 @@ import 'rxjs/add/operator/map';
 })
 export class ListTodosComponent implements OnInit {
   searchGroup: FormGroup;
-  todos: ToDo[];
+  filteredTodos$: Observable<ToDo[]>;
 
   constructor(
     private router: Router,
-    private todosService: TodosService ) { }
+    private todosStore: TodosStore ) { }
 
   ngOnInit() {
     this.searchGroup = new FormGroup({
@@ -28,10 +29,10 @@ export class ListTodosComponent implements OnInit {
 
     this.searchGroup.controls.search.valueChanges
       .debounceTime(300)
-      .do((searchTerm) => console.log(searchTerm))
       .map((searchTerm) => searchTerm.trim())
       .subscribe((searchTerm) => this.searchByName(searchTerm));
 
+    this.todosStore.loadTodos();
     this.getAvailableTodos();
   }
 
@@ -40,8 +41,7 @@ export class ListTodosComponent implements OnInit {
   }
 
   onDelete(todo: ToDo) {
-    this.todosService.delete(todo)
-      .subscribe((_) => this.getAvailableTodos());
+    this.todosStore.delete(todo);
   }
 
   onAdd() {
@@ -54,6 +54,6 @@ export class ListTodosComponent implements OnInit {
   }
 
   private searchByName(searchTerm: string) {
-    this.todosService.search(searchTerm).subscribe((result) => this.todos = result);
+    this.filteredTodos$ = this.todosStore.search(searchTerm);
   }
 }

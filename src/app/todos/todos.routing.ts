@@ -8,8 +8,16 @@ import { NgModule } from '@angular/core';
 @NgModule({
     imports: [
         RouterModule.forChild([
-            {path: 'list', component: ListTodosComponent},
-            {path: 'edit/:id', component: EditTodoComponent, canActivate: [AuthGuard], canDeactivate: [FormCancelGuard]}
+            {
+                path: 'list',
+                component: ListTodosComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'edit/:id',
+                component: EditTodoComponent,
+                canActivate: [AuthGuard],
+                canDeactivate: [FormCancelGuard]}
         ])
     ],
     exports: [RouterModule]

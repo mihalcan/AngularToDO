@@ -10,8 +10,8 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li [routerLinkActive]="['active']">
-        <a [routerLink]="['/login']" *ngIf="!auth.isAuthenticated()">Login</a>
-        <p class="navbar-text" *ngIf="auth.isAuthenticated()">Welcome {{auth.getUserName()}}</p>
+        <a [routerLink]="['/login']" *ngIf="!isAuthenticated">Login</a>
+        <p class="navbar-text" *ngIf="isAuthenticated">Welcome {{userName}}</p>
       </li>
     </ul>
   </div>
